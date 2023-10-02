@@ -1,7 +1,28 @@
 import { Link } from "react-router-dom";
 import SocialLogin from "./SocialLogin";
+import useAuth from "../../hooks/useAuth";
 
 const Register = () => {
+  const { createUser } = useAuth();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // get field value
+    const name = e.target.name.value;
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    const img = e.target.img.value;
+
+    // create a new user
+
+    createUser(email, password)
+      .then((res) => console.log(res.user))
+      .catch((error) => console.log(error));
+
+    console.log(email, password, name, img);
+  };
+
   return (
     <>
       <div className="hero min-h-screen bg-base-200">
@@ -15,58 +36,66 @@ const Register = () => {
             </p>
           </div>
           <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-            <div className="card-body">
-              <div className="form-control">
+            <form onSubmit={handleSubmit}>
+              <div className="card-body">
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Full Name</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Full name"
+                    className="input input-bordered"
+                  />
+                </div>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Email</span>
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Your email"
+                    className="input input-bordered"
+                  />
+                </div>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Image Url</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="img"
+                    placeholder="image url"
+                    className="input input-bordered"
+                  />
+                </div>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Password</span>
+                  </label>
+                  <input
+                    type="password"
+                    name="password"
+                    placeholder="Your password"
+                    className="input input-bordered"
+                  />
+                </div>
+                <div className="form-control mt-6 p-0">
+                  <button className="btn btn-neutral" type="submit">
+                    Register
+                  </button>
+                </div>
                 <label className="label">
-                  <span className="label-text">Full Name</span>
+                  Have an account?{" "}
+                  <Link to="/login" className="label-text-alt link link-hover">
+                    Please Login
+                  </Link>
                 </label>
-                <input
-                  type="text"
-                  placeholder="Full name"
-                  className="input input-bordered"
-                />
+                <SocialLogin />
               </div>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Email</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="email"
-                  className="input input-bordered"
-                />
-              </div>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Image Url</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="image url"
-                  className="input input-bordered"
-                />
-              </div>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Password</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="password"
-                  className="input input-bordered"
-                />
-              </div>
-              <div className="form-control mt-6 p-0">
-                <button className="btn btn-neutral">Register</button>
-              </div>
-              <label className="label">
-                Have an account?{" "}
-                <Link to="/login" className="label-text-alt link link-hover">
-                  Please Login
-                </Link>
-              </label>
-              <SocialLogin />
-            </div>
+            </form>
           </div>
         </div>
       </div>

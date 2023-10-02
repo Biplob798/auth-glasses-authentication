@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import SingleProductCard from "./SingleProductCard";
 
 // common component for displaying products from multiple Components
