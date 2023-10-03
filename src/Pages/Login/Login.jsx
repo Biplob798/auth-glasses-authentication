@@ -1,10 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SocialLogin from "./SocialLogin";
 import { useContext } from "react";
 import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
   const { singin } = useAuth();
+
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,7 +18,10 @@ const Login = () => {
     // singin a user
 
     singin(email, password)
-      .then((res) => console.log(res.user))
+      .then((res) => {
+        console.log(res);
+        navigate("/");
+      })
       .catch((error) => console.log(error));
 
     console.log(email, password);

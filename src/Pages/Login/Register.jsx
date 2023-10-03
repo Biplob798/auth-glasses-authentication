@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SocialLogin from "./SocialLogin";
 import useAuth from "../../hooks/useAuth";
 
 const Register = () => {
   const { createUser } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -17,7 +18,10 @@ const Register = () => {
     // create a new user
 
     createUser(email, password)
-      .then((res) => console.log(res.user))
+      .then((res) => {
+        console.log(res);
+        navigate("/");
+      })
       .catch((error) => console.log(error));
 
     console.log(email, password, name, img);
